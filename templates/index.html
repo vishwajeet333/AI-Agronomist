@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drone Command</title>
+    <script>
+        function updateTelemetry() {
+            fetch('/telemetry').then(r => r.json()).then(data => {
+                document.getElementById('alt').innerText = data.alt;
+                document.getElementById('mode').innerText = data.mode;
+                document.getElementById('lat').innerText = data.lat;
+                document.getElementById('lon').innerText = data.lon;
+            });
+        }
+        function sendCommand(route) {
+            fetch(route).then(r => r.json()).then(data => alert(data.message));
+        }
+        setInterval(updateTelemetry, 1000);
+    </script>
+    <style>
+        body { font-family: monospace; background: #111; color: #0f0; text-align: center; padding-top: 50px; }
+        .panel { border: 2px solid #0f0; width: 400px; margin: auto; padding: 20px; border-radius: 10px; }
+        button { background: #0f0; color: #000; font-weight: bold; padding: 15px 30px; margin: 10px; border: none; cursor: pointer; font-size: 16px; }
+        button:hover { background: #fff; }
+        .data { color: #fff; font-size: 20px; }
+    </style>
+</head>
+<body>
+    <h1>COMMAND CENTER</h1>
+    <div class="panel">
+        <p>ALTITUDE: <span id="alt" class="data">0</span> m</p>
+        <p>MODE: <span id="mode" class="data">--</span></p>
+        <p>GPS: <span id="lat" class="data">0</span>, <span id="lon" class="data">0</span></p>
+    </div>
+    <br>
+    <button onclick="sendCommand('/takeoff')">🚀 TAKEOFF</button>
+    <button onclick="sendCommand('/fly_square')">🔄 FLY SQUARE</button>
+</body>
+</html>
