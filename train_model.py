@@ -6,7 +6,7 @@ import joblib
 print("Training Autonomous Agronomist Model...")
 
 # GENERATE SYNTHETIC DATASET
-# We simulate 1000 readings.
+# simulating 1000 readings.
 # High Temp + Low Moisture = STRESSED (1)
 # Low Temp + High Moisture = HEALTHY (0)
 
@@ -39,4 +39,4 @@ model.fit(X, y)
 print(f" Model Trained. Accuracy: {model.score(X, y)*100:.2f}%")
 
 joblib.dump(model, 'crop_health_model.pkl')
-print("💾 Model saved to 'crop_health_model.pkl'")
+print("Model saved to 'crop_health_model.pkl'")
